@@ -2,8 +2,6 @@ package cn.rcth.base.serivce;
 
 import cn.rcth.base.domain.User;
 
-import java.util.List;
-
 public interface IUserSerivce {
 
     /**

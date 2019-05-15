@@ -4,18 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter@Setter
-public class User {
-    private Integer id;
+public class User extends BatisDomain {
 
     private String openId;
 
     private String sessionKey;
 
-    private String unionId;
-
-    private Integer errCode;
-
-    private String errMsg;
 
 
 }

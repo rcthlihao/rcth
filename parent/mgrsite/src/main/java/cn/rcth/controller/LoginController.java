@@ -1,15 +1,12 @@
 package cn.rcth.controller;
 
 import cn.rcth.base.domain.User;
-import cn.rcth.base.msg.ResultMsg;
 import cn.rcth.base.msg.WxOpenMsg;
 import cn.rcth.base.serivce.IUserSerivce;
 import cn.rcth.base.serivce.impl.SessionOrOpenId;
-import cn.rcth.base.serivce.impl.UserSerivceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,17 +44,17 @@ public class LoginController {
             return map;
         }
         WxOpenMsg openMsg = sessionOrOpenId.getSessionOrOpenId(code);
+        String openId = openMsg.getOpenId();
+        String sessionKey = openMsg.getSessionKey();
         //判断当前用户是否存在
         User user = userSerivce.getopenId(openMsg.getOpenId());
-        if (user == null){
+        if (user == null && openMsg.getOpenId() != null){
+            User user1 = new User();
             //用户不存在,存入初始数据
-            user.setOpenId(openMsg.getOpenId());
-            user.setSessionKey(openMsg.getSessionKey());
-            user.setUnionId(openMsg.getUnionId());
-            user.setErrCode(openMsg.getErrCode());
-            user.setErrMsg(openMsg.getErrMsg());
+            user1.setOpenId(openId);
+            user1.setSessionKey(sessionKey);
             //将默认信息存入数据库
-            userSerivce.inUser(user);
+            userSerivce.inUser(user1);
         }
         map.put("userInfo",openMsg);
         System.out.println(map);

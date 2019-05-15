@@ -14,9 +14,10 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    //通过openId 查询当前用户是否存在
+    /**
+     * 查询数据库当前是否存在本用户
+     * @param openId
+     * @return
+     */
     User selectOpenId(String openId);
-
-
-
 }

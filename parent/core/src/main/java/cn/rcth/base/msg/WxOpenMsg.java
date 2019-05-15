@@ -12,10 +12,5 @@ public class WxOpenMsg {
     private String openId;
     //会话秘钥
     private String sessionKey;
-    //开放平台唯一id
-    private String unionId;
-    //错误码
-    private Integer errCode;
-    //错误信息
-    private String errMsg;
+
 }
