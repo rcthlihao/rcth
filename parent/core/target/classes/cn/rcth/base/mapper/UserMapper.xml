@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.rcth.base.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="cn.rcth.base.domain.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="err_code" property="errCode" jdbcType="INTEGER" />
+    <result column="err_msg" property="errMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.rcth.base.domain.User" useGeneratedKeys="true" keyProperty="id" >
+    insert into user (open_id, session_key, union_id, 
+      err_code, err_msg)
+    values (#{openId,jdbcType=VARCHAR}, #{sessionKey,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, 
+      #{errCode,jdbcType=INTEGER}, #{errMsg,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.rcth.base.domain.User" >
+    update user
+    set open_id = #{openId,jdbcType=VARCHAR},
+      session_key = #{sessionKey,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      err_code = #{errCode,jdbcType=INTEGER},
+      err_msg = #{errMsg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, open_id, session_key, union_id, err_code, err_msg
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, open_id, session_key, union_id, err_code, err_msg
+    from user
+  </select>
+  <select id="selectOpenId" resultType="cn.rcth.base.domain.User">
+    select id, open_id, session_key, union_id, err_code, err_msg
+    from user
+    where open_id = #{openId}
+  </select>
+</mapper>
